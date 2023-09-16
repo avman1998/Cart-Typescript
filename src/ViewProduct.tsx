@@ -2,44 +2,44 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { product } from "./config";
 import { useContext } from "react";
+import { CartContextProps } from "./Context/Context";
 import { CartContext } from "./Context/Context";
-
-interface ClothingItem {
-    category: string;
-    description: string;
-    id: number;
-    image: string;
-    price: number;
-    rating: {
-      rate: number;
-      count: number;
-    };
-    title: string;
-  }
+import { ClothingItem } from "./Context/Context";
 
 
 const ViewProduct=()=>{
     const { id } = useParams();
-   const {cartItem , setCartItems} = useContext(CartContext)
-    const[Productdata , setProductdata]=useState<ClothingItem>()
+   const cartContext  = useContext <CartContextProps | null>(CartContext)
+    const[Productdata , setProductdata]=useState<ClothingItem >()
     
+
+    // Fetch Api
+    const fetchProductdata = async(URL : string)=>{
+      const res = await fetch(URL);
+      const data = await res.json();
+      setProductdata(data)
+    }
+
     // Call API
     useEffect(() => {
         const apiURL = product(Number(id) );
         fetchProductdata(apiURL)
       }, [])
-console.log(cartItem)
+
+ if(!cartContext || !Productdata){
+  return <div>
+    <h1>Loading....</h1>
+  </div>
+  
+ }
+ const {cartItem , setCartItems} = cartContext ;
     //   Function fetch
-    const fetchProductdata = async(URL : string)=>{
-        const res = await fetch(URL);
-        const data = await res.json();
-        setProductdata(data)
-      }
+    
 
       
       // Add to Cart
-      const addToCart = (Productdata : ClothingItem) => {
-        setCartItems([...cartItem, Productdata]);
+      const addToCart = (Data : ClothingItem) => {
+        setCartItems([...cartItem, Data]);
         console.log("Working" )
       };
       

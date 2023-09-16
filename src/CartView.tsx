@@ -14,10 +14,9 @@ const CartView=()=>{
       },0)
   return(
     <>
-    <div className="flex flex-row ">
-
-<ol className="flex flex-row " >
-    <li>
+    <div className="flex  gap-12 m-4">
+    
+   
     {cartItem.map((item : any)=>{
         return <div className="flex flex-col min-h-[300px] max-h-[300px] min-w-[300px] max-w-[300px] mt-4  justify-center items-center" key={item.id}>
             
@@ -30,8 +29,8 @@ const CartView=()=>{
         
         </div>
         })}
-    </li>
-</ol>
+ 
+
     </div>
     <h1>Total Amount :- ₹ {TotalAmount}/-</h1>
         </>
