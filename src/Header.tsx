@@ -4,9 +4,8 @@ import { CartContext } from "./Context/Context";
 import { CartContextProps } from "./Context/Context";
 
 const Header = () => {
-   
-  const value :  CartContextProps | null  = useContext(CartContext);
-
+  const value: CartContextProps | null = useContext(CartContext);
+  if (value?.cartItem?.length === null) return null;
   return (
     <>
       <div className="flex w-full justify-between ">
@@ -27,6 +26,7 @@ const Header = () => {
             🛒Cart :- {value?.cartItem?.length}
           </button>
         </Link>
+        <button>Log In</button>
       </div>
     </>
   );
