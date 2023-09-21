@@ -47,6 +47,7 @@ describe("Header Test Cases", () => {
         </CartContextProvider>
       </BrowserRouter>
     );
+    //Used Regex
     const cartBtn = screen.getByText(/Cart/);
     expect(cartBtn).toBeInTheDocument();
   });
